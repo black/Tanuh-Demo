@@ -54,7 +54,7 @@ const ReferralDecisionScreen = (props: Props) => {
   const placeNextDisabled = !district || !hospital;
 
   return (
-    <div className="relative flex h-[800px] w-[360px] flex-col overflow-hidden bg-surface-primary shadow-xl">
+    <div className="relative h-dvh w-full flex flex-col overflow-hidden bg-surface-primary ">
       <TopNavbar label="Oral" sublabel="Screening" onBack={handleBack} />
 
       <div className="bg-states-error-light px-md py-md">

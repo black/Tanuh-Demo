@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>IndicWhisper Hindi ASR Demo</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px; color: #1a1a1a; }
+  h1 { font-size: 1.4rem; }
+  .card { border: 1px solid #ddd; border-radius: 10px; padding: 24px; margin-top: 24px; }
+  input[type=file] { display: block; margin-bottom: 16px; }
+  button { background: #111; color: #fff; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 0.95rem; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  #result { margin-top: 20px; font-size: 1.1rem; white-space: pre-wrap; min-height: 1.5em; }
+  #status { color: #666; font-size: 0.9rem; margin-top: 10px; }
+  .error { color: #b00020; }
+</style>
+</head>
+<body>
+  <h1>IndicWhisper &mdash; Hindi ASR Demo</h1>
+  <p>Upload an audio file to transcribe it using the AI4Bharat Vistaar IndicWhisper (Hindi) model.</p>
+
+  <div class="card">
+    <input type="file" id="audioFile" accept="audio/*" />
+    <button id="submitBtn">Transcribe</button>
+    <div id="status"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("audioFile");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusEl = document.getElementById("status");
+    const resultEl = document.getElementById("result");
+
+    submitBtn.addEventListener("click", async () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        statusEl.textContent = "Choose an audio file first.";
+        statusEl.className = "error";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      submitBtn.disabled = true;
+      statusEl.className = "";
+      statusEl.textContent = "Transcribing... (first request loads the model and can take a while)";
+      resultEl.textContent = "";
+
+      try {
+        const res = await fetch("/transcribe", { method: "POST", body: formData });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Transcription failed");
+        statusEl.textContent = "Done.";
+        resultEl.textContent = data.text;
+      } catch (err) {
+        statusEl.className = "error";
+        statusEl.textContent = err.message;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

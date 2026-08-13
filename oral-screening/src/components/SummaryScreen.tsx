@@ -27,7 +27,7 @@ const SummaryScreen = (props: Props) => {
       : "Not referred";
 
   return (
-    <div className="relative flex h-[800px] w-[360px] flex-col overflow-hidden bg-surface-primary shadow-xl">
+    <div className="relative flex h-dvh w-full flex-col overflow-hidden bg-surface-primary shadow-xl">
       <TopNavbar
         label="Summary & Recommendation"
         sublabel="Oral Screening"

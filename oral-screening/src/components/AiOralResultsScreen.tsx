@@ -17,7 +17,7 @@ const AiOralResultsScreen = (props: Props) => {
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
 
   return (
-    <div className="relative flex h-[800px] w-[360px] flex-col overflow-hidden bg-surface-primary shadow-xl">
+    <div className="relative flex h-dvh w-full flex-col overflow-hidden bg-surface-primary shadow-xl">
       <TopNavbar label="Oral" sublabel="Screening" onBack={onBack} />
 
       <div className="bg-states-error-light px-md py-md">

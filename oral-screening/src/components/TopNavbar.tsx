@@ -11,7 +11,7 @@ const TopNavbar = (props: Props) => {
   const { label, sublabel, onBack } = props;
 
   return (
-    <div className="flex h-14 w-full items-center justify-between bg-brand-primary px-md">
+    <div className="flex h-16 w-full items-center justify-between bg-brand-primary px-md">
       <div className="flex items-center gap-4">
         <button
           type="button"

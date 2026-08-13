@@ -176,7 +176,7 @@ const CaptureImagesScreen = (props: Props) => {
   }
 
   return (
-    <div className="relative flex h-[800px] w-[360px] flex-col overflow-hidden bg-surface-primary shadow-xl">
+    <div className="relative flex h-dvh w-full flex-col overflow-hidden bg-surface-primary shadow-xl">
       <TopNavbar label="Oral" sublabel="Screening" />
 
       {/* Header */}
@@ -310,6 +310,7 @@ const CaptureImagesScreen = (props: Props) => {
       />
       <button
         type="button"
+        disabled={totalCaptured > MIN_IMAGES-1}
         onClick={handleOpenCamera}
         aria-label="Add photo"
         className="absolute bottom-[132px] right-4 flex size-14 items-center justify-center rounded-full bg-text-positive text-brand-primary-dark shadow-[0_0_8px_rgba(0,0,0,0.25)]"

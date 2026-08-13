@@ -69,7 +69,7 @@ const ScreeningFlow = (props: Props) => {
   }
 
   return (
-    <div className="flex h-[800px] w-[360px] flex-col items-center justify-center gap-4 bg-surface-primary px-8 shadow-xl">
+    <div className="flex h-dvh w-full flex-col items-center justify-center gap-4 bg-surface-primary px-8 shadow-xl">
       <p className="text-title-md text-brand-primary-dark">Screening complete</p>
       <p className="text-center text-body-md text-text-secondary">
         The oral screening flow has been submitted.
