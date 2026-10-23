@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* Design tokens from the Tanuh AI Figma file */
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-roboto: var(--font-roboto-family), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #11777c;
+  --color-brand-text: #0e6266;
+  --color-surface: #f7f7f7;
+  --color-surface-muted: #f3f4f6;
+  --color-surface-hover: #f9fafb;
+  --color-border: #d1d5db;
+  --color-divider: #e5e7eb;
+  --color-content: #111827;
+  --color-content-tertiary: #6b7280;
+  --color-content-disabled: #9ca3af;
+  --color-wave-played: #4b5563;
+  --color-ai: #4e008d;
+  --color-danger-bg: #f2e3e4;
+  --color-danger: #9b1c2c;
+
+  --tracking-wide: 0.4px;
+  --tracking-body: 0.5px;
+  --tracking-body-md: 0.25px;
+}
+
+body {
+  background: #e9ecef;
+  color: var(--color-content);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* "Transcribing..." sparkles: the two stars pulse out of phase */
+@keyframes sparkle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.55);
+    opacity: 0.5;
+  }
+}
+.animate-sparkle {
+  animation: sparkle 1.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.animate-sparkle-delayed {
+  animation: sparkle 1.2s ease-in-out 0.6s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes rec-dot {
+  50% {
+    opacity: 0.25;
+  }
+}
+.animate-rec-dot {
+  animation: rec-dot 1s step-end infinite;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.animate-slide-up {
+  animation: slide-up 0.22s ease-out;
+}
