@@ -1,0 +1,900 @@
+<title>DQS Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f6f7f5;
+  --surface: #ffffff;
+  --ink: #1c2426;
+  --muted: #5a6668;
+  --rule: #dce1de;
+  --accent: #0e6763;
+  --accent-soft: #e2efed;
+  --code-bg: #eef1ef;
+  --g-suff: #2f5a96;
+  --g-prov: #7d5c0f;
+  --g-susp: #9e3434;
+  --g-qual: #2d7446;
+  --g-suff-bg: #e7edf6;
+  --g-prov-bg: #f4eddc;
+  --g-susp-bg: #f6e5e3;
+  --g-qual-bg: #e4f0e7;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111718;
+    --surface: #182022;
+    --ink: #e4eae8;
+    --muted: #9aa7a5;
+    --rule: #2b3638;
+    --accent: #5ec0b6;
+    --accent-soft: #1d3331;
+    --code-bg: #1f292b;
+    --g-suff: #8fb2e8;
+    --g-prov: #d9b25c;
+    --g-susp: #ec8f86;
+    --g-qual: #7fcb97;
+    --g-suff-bg: #1c2839;
+    --g-prov-bg: #2e2716;
+    --g-susp-bg: #33201f;
+    --g-qual-bg: #1a2e21;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111718;
+  --surface: #182022;
+  --ink: #e4eae8;
+  --muted: #9aa7a5;
+  --rule: #2b3638;
+  --accent: #5ec0b6;
+  --accent-soft: #1d3331;
+  --code-bg: #1f292b;
+  --g-suff: #8fb2e8;
+  --g-prov: #d9b25c;
+  --g-susp: #ec8f86;
+  --g-qual: #7fcb97;
+  --g-suff-bg: #1c2839;
+  --g-prov-bg: #2e2716;
+  --g-susp-bg: #33201f;
+  --g-qual-bg: #1a2e21;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-inline: 20px;
+  padding-block: 0 64px;
+}
+.wrap { max-width: 1040px; margin: 0 auto; }
+.prose { max-width: 68ch; }
+
+header.top {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  margin-inline: -20px;
+  padding: 12px 20px;
+}
+header.top .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between; }
+.brand { font-weight: 600; letter-spacing: 0.01em; }
+.brand span { color: var(--muted); font-weight: 400; }
+nav.sections { display: flex; gap: 4px; flex-wrap: wrap; }
+nav.sections a {
+  color: var(--ink); text-decoration: none; font-size: 14px;
+  padding: 4px 10px; border-radius: 4px;
+}
+nav.sections a:hover, nav.sections a:focus-visible { background: var(--accent-soft); color: var(--accent); outline: none; }
+
+section.part { padding-top: 48px; scroll-margin-top: 64px; }
+.eyebrow {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--accent); font-weight: 600; margin: 0 0 6px;
+}
+h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; font-weight: 600; text-wrap: balance; }
+h2 { font-size: 22px; line-height: 1.3; margin: 40px 0 8px; font-weight: 600; text-wrap: balance; }
+h3 { font-size: 17px; margin: 28px 0 4px; font-weight: 600; }
+p { margin: 0 0 14px; }
+.lede { font-size: 18px; color: var(--ink); }
+.meta { color: var(--muted); font-size: 14px; }
+code, .mono { font-family: var(--mono); font-size: 0.88em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+a { color: var(--accent); }
+
+.gates { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 16px 0 8px; }
+.gate { background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--c); padding: 14px 16px; }
+.gate h3 { margin: 0 0 6px; color: var(--c); font-size: 15px; }
+.gate p { font-size: 14.5px; margin: 0 0 6px; }
+.gate p:last-child { margin-bottom: 0; }
+.c-suff { --c: var(--g-suff); }
+.c-prov { --c: var(--g-prov); }
+.c-susp { --c: var(--g-susp); }
+.c-qual { --c: var(--g-qual); }
+
+.table-scroll { overflow-x: auto; margin: 8px 0 16px; }
+table.fields-table, table.plain { border-collapse: collapse; width: 100%; font-size: 14px; }
+table.fields-table th, table.fields-table td, table.plain th, table.plain td { text-align: left; vertical-align: top; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--rule); }
+table.fields-table th, table.plain th { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
+table.fields-table td:first-child, table.plain td:first-child { white-space: nowrap; }
+table.fields-table td:nth-child(2) { min-width: 220px; }
+table.fields-table td:nth-child(6) { min-width: 180px; }
+
+details.endpoint { background: var(--surface); border: 1px solid var(--rule); margin: 0 0 10px; padding: 0 16px; scroll-margin-top: 64px; }
+details.endpoint > summary { cursor: pointer; padding: 12px 0; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; list-style: none; }
+details.endpoint > summary::-webkit-details-marker { display: none; }
+details.endpoint > summary::before { content: "\25B8"; color: var(--muted); width: 12px; }
+details.endpoint[open] > summary::before { content: "\25BE"; }
+details.endpoint > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.endpoint > p { font-size: 15px; }
+.method { font-family: var(--mono); font-size: 12px; font-weight: 500; background: var(--accent-soft); color: var(--accent); padding: 1px 7px; border-radius: 3px; }
+.ep-label { color: var(--muted); font-size: 14px; }
+
+pre.code { background: var(--code-bg); padding: 14px 16px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.5; margin: 8px 0 16px; max-height: 480px; }
+.cap { font-size: 14px; color: var(--muted); margin: 14px 0 0; }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--rule); padding: 16px; margin: 12px 0 20px; }
+.flow .node { border: 1px solid var(--accent); padding: 8px 12px; font-weight: 600; font-size: 14px; background: var(--bg); }
+.flow .node.db { border-radius: 12px; }
+.flow .node small { display: block; font-weight: 400; font-size: 12px; color: var(--muted, inherit); }
+.flow .arrow { font-size: 12px; text-align: center; color: var(--muted, inherit); }
+dl.fields { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 8px 0 18px; font-size: 15px; }
+dl.fields dt { font-family: var(--mono); font-size: 13.5px; padding-top: 2px; }
+dl.fields dd { margin: 0; }
+@media (max-width: 560px) { dl.fields { grid-template-columns: 1fr; } dl.fields dd { margin-bottom: 8px; } }
+ul.plain { padding-left: 1.2em; margin: 0 0 16px; }
+ul.plain li { margin-bottom: 6px; }
+ol.steps { padding-left: 1.3em; margin: 0 0 16px; }
+ol.steps li { margin-bottom: 8px; padding-left: 4px; }
+
+.components { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 0 32px; }
+.components div { border-top: 1px solid var(--rule); padding: 12px 0 4px; }
+.components h3 { margin: 0 0 4px; font-size: 16px; }
+.components p { font-size: 15px; }
+
+/* Rule lookup */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 16px 0 8px; }
+.controls input[type=search] {
+  flex: 1 1 260px; font: inherit; font-size: 15px; padding: 8px 12px;
+  border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); color: var(--ink);
+}
+.controls input[type=search]:focus-visible, .controls select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.controls select { font: inherit; font-size: 14px; padding: 7px 8px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.chip {
+  font: inherit; font-size: 13px; padding: 4px 11px; border-radius: 14px; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+}
+.chip[aria-pressed="true"] { background: var(--c, var(--accent)); border-color: var(--c, var(--accent)); color: var(--bg); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.count { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+
+.rule { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--c); padding: 14px 16px 12px; margin-bottom: 10px; }
+.rule-head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.rule-id { font-family: var(--mono); font-weight: 500; font-size: 14px; color: var(--c); }
+.rule-title { font-weight: 600; font-size: 16px; flex: 1 1 240px; }
+.rule-area { font-size: 12.5px; color: var(--c); }
+.rule-def { margin: 6px 0 4px; }
+.rule-note { color: var(--muted); font-size: 14.5px; margin: 0 0 8px; }
+.rule-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 6px 18px; font-size: 13.5px; border-top: 1px dashed var(--rule); padding-top: 8px; }
+.rule-facts div span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+.rule-msg { font-size: 13.5px; margin-top: 8px; color: var(--muted); }
+.rule-msg q { color: var(--ink); }
+.empty { color: var(--muted); padding: 20px 0; }
+
+footer { margin-top: 56px; border-top: 1px solid var(--rule); padding-top: 14px; font-size: 13px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (max-width: 560px) { h1 { font-size: 26px; } body { padding-inline: 16px; } header.top { margin-inline: -16px; padding-inline: 16px; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">DQS <span>· Data Quality Scoring · Samvit</span></div>
+    <nav class="sections" aria-label="Sections">
+      <a href="#api">API</a>
+      <a href="#record-rules">Record rules</a>
+      <a href="#dataset-rules">Dataset rules</a>
+      <a href="#architecture">Architecture</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="part" id="top">
+  <h1>DQS for Samvit</h1>
+  <div class="prose">
+    <p class="lede">DQS checks the screening records Samvit's workers send and reports how far the data can be relied on. Where it cannot be, DQS names the worker, the field and the rule responsible.</p>
+    <p>This page has four parts. The <a href="#api">API</a> section describes how records are sent. <a href="#record-rules">Record rules</a> are checked on each record as it arrives, and their results come back in the API response. <a href="#dataset-rules">Dataset rules</a> look at many records together, such as a worker's week. <a href="#architecture">Architecture</a> shows how the parts of DQS fit together.</p>
+  </div>
+</section>
+
+<!-- ============================ API ============================ -->
+<section class="part" id="api">
+  <p class="eyebrow">API</p>
+  <h1>Sending records</h1>
+  <div class="prose">
+    <p>Each Avni form is sent to DQS as one record, in one request, when it is completed. DQS checks the record against Samvit's record rules straight away and returns every rule's result in the response. It also stores the record and its results for reporting.</p>
+
+    <h2>Addresses</h2>
+    <p>There is one address for each of the 5 record types. Each takes a <code>POST</code> request with a JSON body.</p>
+  </div>
+  <div class="table-scroll">
+  <table class="plain">
+    <thead><tr><th>Address</th><th>Record type</th></tr></thead>
+    <tbody>
+      <tr><td><a href="#api-registration"><code>/v1/samvit/records/registration</code></a></td><td>Person registration</td></tr>
+      <tr><td><a href="#api-cbac"><code>/v1/samvit/records/cbac</code></a></td><td>CBAC form</td></tr>
+      <tr><td><a href="#api-oral_screening"><code>/v1/samvit/records/oral_screening</code></a></td><td>Oral screening</td></tr>
+      <tr><td><a href="#api-clinician_review"><code>/v1/samvit/records/clinician_review</code></a></td><td>Clinician review of an oral screening</td></tr>
+      <tr><td><a href="#api-oral_image"><code>/v1/samvit/records/oral_image</code></a></td><td>One photograph from an oral screening</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="prose">
+    <p>The running service also describes these addresses at <code>/docs</code> and <code>/openapi.json</code>.</p>
+
+    <h2>Authentication</h2>
+    <p>The service has no login or API key of its own. Whoever runs it controls who can reach it, for example through a gateway or a private network.</p>
+
+    <h2>Request body</h2>
+    <p>The body is a flat JSON object: one key per field, with no wrapper around it. The fields for each record type are listed below.</p>
+    <ul class="plain">
+      <li><b>Dates</b> are written <code>2026-09-22</code>. <b>Dates with times</b> are written <code>2026-09-22T10:40:00+05:30</code>. A time sent without the <code>+05:30</code> part is read as UTC.</li>
+      <li><b>true or false</b> fields take JSON <code>true</code> and <code>false</code>, or the text <code>"true"</code> and <code>"false"</code>. <code>1</code> and <code>0</code> are not accepted.</li>
+      <li><b>Numbers</b> may be sent as JSON numbers or as text such as <code>"52"</code>.</li>
+      <li>A field with no value can be left out or sent as <code>null</code>.</li>
+      <li>A field marked <b>Worked out by DQS</b> does not need to be sent. A value sent for it is replaced.</li>
+      <li>A field marked <b>Filled in by DQS</b> does not need to be sent either. DQS fills it in when it is left out; a value that is sent is kept.</li>
+      <li>A missing <b>Required</b> field does not stop the record being checked. The response carries a warning naming it. A record without <code>record_id</code> or <code>beneficiary_id</code> is refused.</li>
+      <li>A field not listed for the record type is stored with the record and ignored by the rules. The response carries a warning naming it.</li>
+      <li>Sending a record again with the same <code>record_id</code> replaces the stored copy and checks it again.</li>
+    </ul>
+
+    <h2>Personal data</h2>
+    <p>Personal data is handled before anything is stored or checked. The <b>Stored as</b> column in the field tables gives the handling for each field.</p>
+    <ul class="plain">
+      <li>A person's <b>name</b> and <b>phone number</b> are replaced by a code. The same value always gives the same code, so records for one person can still be matched. The code cannot be turned back into the name or number without a secret key, which is held by whoever runs the service. A name also gets a second code for how it sounds, so that two spellings of one name can be matched.</li>
+      <li>An <b>Aadhaar</b>, UID or Voter ID number, the <b>full address</b> and the <b>clinician's notes</b> are removed. Only the fact that a value was sent is kept.</li>
+      <li>The Avni <b>beneficiary ID</b> is kept as sent, so that any record can be traced back to Avni.</li>
+    </ul>
+
+    <h2>Fields on every record type</h2>
+  </div>
+  <div class="table-scroll"><table class="fields-table"><thead><tr><th>Field</th><th>Meaning</th><th>Type</th><th>Allowed values</th><th>Required</th><th>Stored as</th></tr></thead><tbody>
+<tr><td><code>record_id</code></td><td>Your ID for this record. Send the same ID when the record is sent again.</td><td>Text</td><td></td><td>Always. The record is refused without it.</td><td>Kept</td></tr>
+<tr><td><code>beneficiary_id</code></td><td>The person&#x27;s ID in Avni.</td><td>Text</td><td></td><td>Always. The record is refused without it.</td><td>Kept as sent, so a record can be traced back to Avni</td></tr>
+<tr><td><code>worker_id</code></td><td>The worker who filled in the form. On a clinician review, the clinician.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>village_id</code></td><td>The LGD code of the village the person is registered in.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>visit_at</code></td><td>When the visit happened, to the minute, as the phone recorded it.</td><td>Date and time</td><td>e.g. <code>2026-09-22T10:40:00+05:30</code></td><td>Always</td><td>Kept</td></tr>
+<tr><td><code>visit_date</code></td><td>The day of the visit. Filled in from visit_at when left out.</td><td>Date</td><td>e.g. <code>2026-09-22</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>recorded_at</code></td><td>When the worker finished entering the form on the phone.</td><td>Date and time</td><td>e.g. <code>2026-09-22T10:40:00+05:30</code></td><td>Always</td><td>Kept</td></tr>
+<tr><td><code>received_at</code></td><td>When DQS received the record.</td><td>Date and time</td><td>e.g. <code>2026-09-22T10:40:00+05:30</code></td><td>Filled in by DQS with the time the record arrived, if not sent. A value sent is kept.</td><td>Kept</td></tr>
+<tr><td><code>capture_lag_hours</code></td><td>Hours from the visit to the end of data entry.</td><td>Number</td><td></td><td>Worked out by DQS</td><td>Kept</td></tr>
+<tr><td><code>sync_lag_hours</code></td><td>Hours from the end of data entry to arrival at DQS.</td><td>Number</td><td></td><td>Worked out by DQS</td><td>Kept</td></tr>
+<tr><td><code>gps_lat</code></td><td>Latitude of the phone at the visit.</td><td>Number</td><td>-90 to 90</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>gps_lon</code></td><td>Longitude of the phone at the visit.</td><td>Number</td><td>-180 to 180</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>distance_outside_village_m</code></td><td>How far the phone&#x27;s location lies outside the village boundary, in metres. 0 when inside it.</td><td>Number</td><td>0 or more</td><td>Worked out by DQS</td><td>Kept</td></tr>
+</tbody></table></div><p class="meta">Clinician review does not carry <code>distance_outside_village_m</code>. Oral image does not carry <code>recorded_at</code>, <code>capture_lag_hours</code>, <code>sync_lag_hours</code>, <code>gps_lat</code>, <code>gps_lon</code>, <code>distance_outside_village_m</code>.</p>
+
+  <div class="prose">
+    <h2>Fields for each record type</h2>
+    <p>Open a record type to see its own fields, in addition to the ones above.</p>
+  </div>
+  <details class="endpoint" id="api-registration"><summary><span class="method">POST</span> <code>/v1/samvit/records/registration</code> <span class="ep-label">Registration</span></summary>
+<p>One person&#x27;s registration in Avni. Checked against 6 record rules and 1 dataset rules.</p>
+<div class="table-scroll"><table class="fields-table"><thead><tr><th>Field</th><th>Meaning</th><th>Type</th><th>Allowed values</th><th>Required</th><th>Stored as</th></tr></thead><tbody>
+<tr><td><code>registered_on</code></td><td>The day the person was registered.</td><td>Date</td><td>e.g. <code>2026-09-22</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>age</code></td><td>Age in years.</td><td>Whole number</td><td>0 to 120</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sex</code></td><td>Sex.</td><td>Text, one of a list</td><td><code>male</code>, <code>female</code>, <code>other</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>dob_verified</code></td><td>Whether the date of birth was checked against a document.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>full_name</code></td><td>The person&#x27;s first and last name.</td><td>Text</td><td></td><td>Optional</td><td><b>Replaced by a code.</b> A second code for how the name sounds is added, so that two spellings of one name can be matched.</td></tr>
+<tr><td><code>full_address</code></td><td>The person&#x27;s full address.</td><td>Text</td><td></td><td>Optional</td><td><b>Removed.</b> Only the fact that a value was sent is kept.</td></tr>
+</tbody></table></div></details>
+<details class="endpoint" id="api-cbac"><summary><span class="method">POST</span> <code>/v1/samvit/records/cbac</code> <span class="ep-label">CBAC</span></summary>
+<p>One CBAC form (Community Based Assessment Checklist): risk factors, symptoms and the referrals made. Checked against 18 record rules and 3 dataset rules.</p>
+<div class="table-scroll"><table class="fields-table"><thead><tr><th>Field</th><th>Meaning</th><th>Type</th><th>Allowed values</th><th>Required</th><th>Stored as</th></tr></thead><tbody>
+<tr><td><code>age</code></td><td>Age in years.</td><td>Whole number</td><td>0 to 120</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>tobacco_use</code></td><td>Part A: tobacco use.</td><td>Text, one of a list</td><td><code>never</code>, <code>past_or_sometimes</code>, <code>daily</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>alcohol_daily</code></td><td>Part A: drinks alcohol daily.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>waist_cm</code></td><td>Part A: waist measurement in centimetres.</td><td>Number</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>physical_activity_150</code></td><td>Part A: at least 150 minutes of physical activity a week.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>family_history_ncd</code></td><td>Part A: family history of high blood pressure, diabetes or heart disease.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_breathlessness</code></td><td>Part B: Shortness of breath.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_cough_2wk</code></td><td>Part B: Cough for more than two weeks.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_blood_in_sputum</code></td><td>Part B: Blood in sputum.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_fever_2wk</code></td><td>Part B: Fever for more than two weeks.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_weight_loss</code></td><td>Part B: Weight loss.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_night_sweats</code></td><td>Part B: Night sweats.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>on_anti_tb_drugs</code></td><td>Part B: Currently taking TB medicines.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>family_tb_current</code></td><td>Part B: Someone in the family currently has TB.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>history_of_tb</code></td><td>Part B: Has had TB before.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_blurred_vision</code></td><td>Part B: Blurred vision.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_hearing_difficulty</code></td><td>Part B: Difficulty hearing.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_fits_history</code></td><td>Part B: History of fits.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_mouth_opening_difficulty</code></td><td>Part B: Difficulty opening the mouth.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_mouth_ulcer_2wk</code></td><td>Part B: Mouth ulcer for more than two weeks.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_mouth_growth_2wk</code></td><td>Part B: Growth in the mouth for more than two weeks.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_mouth_patch_2wk</code></td><td>Part B: White or red patch in the mouth for more than two weeks.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_pain_chewing</code></td><td>Part B: Pain while chewing.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_voice_change</code></td><td>Part B: Change in voice.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_skin_patch</code></td><td>Part B: Pale or discoloured skin patch with loss of feeling.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_grip_difficulty</code></td><td>Part B: Difficulty gripping.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_sensation_loss</code></td><td>Part B: Loss of sensation in hands or feet.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_breast_lump</code></td><td>Part B: Lump in the breast (women only).</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_nipple_discharge</code></td><td>Part B: Blood-stained discharge from the nipple (women only).</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_breast_change</code></td><td>Part B: Change in the shape or size of the breast (women only).</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_bleeding_between_periods</code></td><td>Part B: Bleeding between periods (women only).</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_bleeding_after_menopause</code></td><td>Part B: Bleeding after menopause (women only).</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_bleeding_after_intercourse</code></td><td>Part B: Bleeding after intercourse (women only).</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sym_foul_vaginal_discharge</code></td><td>Part B: Foul-smelling vaginal discharge (women only).</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>cooking_fuel</code></td><td>Part C: fuel used for cooking.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>occupational_exposure</code></td><td>Part C: exposed to dust, smoke or fumes at work.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>phq2_interest</code></td><td>Part D: little interest or pleasure in doing things, 0 to 3.</td><td>Whole number</td><td>0 to 3</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>phq2_mood</code></td><td>Part D: feeling down, depressed or hopeless, 0 to 3.</td><td>Whole number</td><td>0 to 3</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>part_a_score</code></td><td>Part A score as the worker entered it.</td><td>Whole number</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>cbac_part_a_points</code></td><td>Part A score worked out by DQS from the six Part A answers.</td><td>Whole number</td><td>0 to 11</td><td>Worked out by DQS</td><td>Kept</td></tr>
+<tr><td><code>part_d_score</code></td><td>Part D score as the worker entered it.</td><td>Whole number</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>total_score</code></td><td>Total score as the worker entered it.</td><td>Whole number</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>refer_to_mo</code></td><td>Referred to the Medical Officer.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>refer_to_cho</code></td><td>Referred to the Community Health Officer.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>referral_reason</code></td><td>Why the person was referred.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>ncd_day_priority</code></td><td>Marked as a priority for the NCD screening day.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>counselling_provided</code></td><td>Counselling was given.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>phone</code></td><td>The person&#x27;s phone number.</td><td>Text</td><td></td><td>Optional</td><td><b>Replaced by a code.</b> The same number always gives the same code.</td></tr>
+<tr><td><code>national_id</code></td><td>An Aadhaar, UID or Voter ID number.</td><td>Text</td><td></td><td>Optional</td><td><b>Removed.</b> Only the fact that a value was sent is kept.</td></tr>
+</tbody></table></div></details>
+<details class="endpoint" id="api-oral_screening"><summary><span class="method">POST</span> <code>/v1/samvit/records/oral_screening</code> <span class="ep-label">Oral screening</span></summary>
+<p>One oral screening: the risk-factor questions, whether a lesion was seen, and how many photographs were taken and what the worker and the AI said about them. Checked against 14 record rules and 3 dataset rules.</p>
+<div class="table-scroll"><table class="fields-table"><thead><tr><th>Field</th><th>Meaning</th><th>Type</th><th>Allowed values</th><th>Required</th><th>Stored as</th></tr></thead><tbody>
+<tr><td><code>screening_not_required</code></td><td>The screening was not needed for this person.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>able_to_open_mouth</code></td><td>The person could open their mouth for the screening.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>flw_overrides_ai</code></td><td>The worker saw a lesion that the app&#x27;s AI did not flag.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>oral_screened_at</code></td><td>When the oral screening happened, taken from visit_at.</td><td>Date and time</td><td>e.g. <code>2026-09-22T10:40:00+05:30</code></td><td>Worked out by DQS</td><td>Kept</td></tr>
+<tr><td><code>image_count</code></td><td>Number of photographs taken.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_ai_missing</code></td><td>Photographs with no AI verdict.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_missing</code></td><td>Photographs with no verdict from the worker.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_and_ai_suspicious</code></td><td>Photographs both the worker and the AI found suspicious.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_only_suspicious</code></td><td>Photographs only the worker found suspicious, compared with the AI.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_ai_only_suspicious</code></td><td>Photographs only the AI found suspicious, compared with the worker.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_neither_suspicious</code></td><td>Photographs neither the worker nor the AI found suspicious.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>any_symptoms</code></td><td>The person reported symptoms.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>flw_sees_lesion</code></td><td>The worker saw a lesion.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>precapture_ack</code></td><td>The worker confirmed the app&#x27;s instructions before taking photographs.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>smokeless_tobacco</code></td><td>Smokeless tobacco use.</td><td>Text, one of a list</td><td><code>current</code>, <code>past</code>, <code>never</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>bidi_cigarette</code></td><td>Bidi or cigarette use.</td><td>Text, one of a list</td><td><code>current</code>, <code>past</code>, <code>never</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>areca_nut</code></td><td>Areca nut use.</td><td>Text, one of a list</td><td><code>current</code>, <code>past</code>, <code>never</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>alcohol</code></td><td>Alcohol use.</td><td>Text, one of a list</td><td><code>current</code>, <code>past</code>, <code>never</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>alcohol_frequency</code></td><td>How often alcohol is taken.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>place_of_referral_id</code></td><td>Where the person was referred.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+</tbody></table></div></details>
+<details class="endpoint" id="api-clinician_review"><summary><span class="method">POST</span> <code>/v1/samvit/records/clinician_review</code> <span class="ep-label">Clinician review</span></summary>
+<p>One clinician&#x27;s review of the photographs from an oral screening. Checked against 7 record rules and 2 dataset rules.</p>
+<div class="table-scroll"><table class="fields-table"><thead><tr><th>Field</th><th>Meaning</th><th>Type</th><th>Allowed values</th><th>Required</th><th>Stored as</th></tr></thead><tbody>
+<tr><td><code>screened_by_worker_id</code></td><td>The worker who took the photographs being reviewed.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>image_count</code></td><td>Number of photographs taken.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_ai_missing</code></td><td>Photographs with no AI verdict.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_missing</code></td><td>Photographs with no verdict from the clinician.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_and_ai_suspicious</code></td><td>Photographs both the clinician and the AI found suspicious.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_only_suspicious</code></td><td>Photographs only the clinician found suspicious, compared with the AI.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_ai_only_suspicious</code></td><td>Photographs only the AI found suspicious, compared with the clinician.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_neither_suspicious</code></td><td>Photographs neither the clinician nor the AI found suspicious.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_and_flw_suspicious</code></td><td>Photographs both the clinician and the worker found suspicious.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_rater_only_suspicious_vs_flw</code></td><td>Photographs only the clinician found suspicious, compared with the worker.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_flw_only_suspicious</code></td><td>Photographs only the worker found suspicious, compared with the clinician.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_neither_suspicious_vs_flw</code></td><td>Photographs neither the clinician nor the worker found suspicious.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>risk_level</code></td><td>The clinician&#x27;s risk level.</td><td>Text, one of a list</td><td><code>high_risk</code>, <code>low_risk</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>review_suspicious</code></td><td>The clinician found the photographs suspicious.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>provisional_diagnosis</code></td><td>The clinician&#x27;s provisional diagnosis.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>diagnosis_subtype</code></td><td>The subtype of that diagnosis.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>recommended_action</code></td><td>The next step the clinician recommends. “No action” when nothing more is needed.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>reviewed_on</code></td><td>The day of the review.</td><td>Date</td><td>e.g. <code>2026-09-22</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_unacceptable</code></td><td>Photographs the clinician could not use.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>images_highest_risk_marked</code></td><td>Photographs the clinician marked as highest risk.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>review_notes</code></td><td>The clinician&#x27;s free-text notes.</td><td>Text</td><td></td><td>Optional</td><td><b>Removed.</b> Only the fact that a value was sent is kept.</td></tr>
+</tbody></table></div></details>
+<details class="endpoint" id="api-oral_image"><summary><span class="method">POST</span> <code>/v1/samvit/records/oral_image</code> <span class="ep-label">Oral image</span></summary>
+<p>One photograph from an oral screening, described by measurements taken from the file. The photograph itself is not sent. Checked against 9 record rules.</p>
+<div class="table-scroll"><table class="fields-table"><thead><tr><th>Field</th><th>Meaning</th><th>Type</th><th>Allowed values</th><th>Required</th><th>Stored as</th></tr></thead><tbody>
+<tr><td><code>screening_record_id</code></td><td>The record_id of the oral screening the photograph belongs to.</td><td>Text</td><td></td><td>Always</td><td>Kept</td></tr>
+<tr><td><code>image_format</code></td><td>The file type. undecodable when the file would not open.</td><td>Text, one of a list</td><td><code>jpeg</code>, <code>png</code>, <code>other</code>, <code>undecodable</code></td><td>Always</td><td>Kept</td></tr>
+<tr><td><code>image_bytes</code></td><td>File size in bytes.</td><td>Whole number</td><td>0 or more</td><td>Always</td><td>Kept</td></tr>
+<tr><td><code>image_sha256</code></td><td>A fingerprint of the exact file, used to spot the same file sent twice.</td><td>Text</td><td></td><td>Always</td><td>Kept</td></tr>
+<tr><td><code>extractor_version</code></td><td>Version of the DQS image scanner that took the measurements.</td><td>Text</td><td></td><td>Always</td><td>Kept</td></tr>
+<tr><td><code>image_width</code></td><td>Width in pixels.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>image_height</code></td><td>Height in pixels.</td><td>Whole number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>focus_laplacian_var</code></td><td>A sharpness measure. Higher is sharper.</td><td>Number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>luminance_mean</code></td><td>Average brightness, from 0 (black) to 255 (white).</td><td>Number</td><td>0 to 255</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>clipped_dark_share</code></td><td>Share of the picture that is fully black, from 0 to 1.</td><td>Number</td><td>0 to 1</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>clipped_bright_share</code></td><td>Share of the picture that is fully white, from 0 to 1.</td><td>Number</td><td>0 to 1</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>colour_cast</code></td><td>How strongly the colours lean toward one tint.</td><td>Number</td><td>0 or more</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>image_phash</code></td><td>A fingerprint of how the picture looks, used to spot near copies.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>sha256_seen_other_beneficiary</code></td><td>The same file was sent for another person.</td><td>true or false</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>phash_distance_other_beneficiary</code></td><td>How different the photograph looks from the closest photograph of another person. 0 is identical.</td><td>Whole number</td><td>0 to 64</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>phash_distance_same_screening</code></td><td>How different the photograph looks from the closest other photograph in the same screening. 0 is identical.</td><td>Whole number</td><td>0 to 64</td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>exif_taken_at</code></td><td>When the camera says the photograph was taken.</td><td>Date and time</td><td>e.g. <code>2026-09-22T10:40:00+05:30</code></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>exif_camera</code></td><td>The camera make and model the file names.</td><td>Text</td><td></td><td>Optional</td><td>Kept</td></tr>
+<tr><td><code>exif_gap_hours</code></td><td>Hours between when the photograph was taken and the visit.</td><td>Number</td><td></td><td>Worked out by DQS</td><td>Kept</td></tr>
+</tbody></table></div></details>
+
+  <div class="prose">
+    <h2>Example</h2>
+    <p class="cap">Request: <code>POST /v1/samvit/records/cbac</code>. The phone number and Aadhaar number are shown as sent. DQS codes or removes them before storing anything.</p>
+  </div>
+<pre class="code">{
+  &quot;record_id&quot;: &quot;cbac-000123&quot;,
+  &quot;beneficiary_id&quot;: &quot;BEN-45871&quot;,
+  &quot;worker_id&quot;: &quot;ASHA-0042&quot;,
+  &quot;village_id&quot;: &quot;625584&quot;,
+  &quot;visit_at&quot;: &quot;2026-09-22T10:40:00+05:30&quot;,
+  &quot;recorded_at&quot;: &quot;2026-09-22T10:52:00+05:30&quot;,
+  &quot;gps_lat&quot;: 13.138,
+  &quot;gps_lon&quot;: 77.8909,
+  &quot;age&quot;: 52,
+  &quot;tobacco_use&quot;: &quot;daily&quot;,
+  &quot;alcohol_daily&quot;: false,
+  &quot;sex&quot;: &quot;female&quot;,
+  &quot;waist_cm&quot;: 84,
+  &quot;physical_activity_150&quot;: true,
+  &quot;family_history_ncd&quot;: false,
+  &quot;sym_breathlessness&quot;: false,
+  &quot;sym_cough_2wk&quot;: false,
+  &quot;sym_blood_in_sputum&quot;: false,
+  &quot;sym_fever_2wk&quot;: false,
+  &quot;sym_weight_loss&quot;: false,
+  &quot;sym_night_sweats&quot;: false,
+  &quot;on_anti_tb_drugs&quot;: false,
+  &quot;family_tb_current&quot;: false,
+  &quot;history_of_tb&quot;: false,
+  &quot;sym_blurred_vision&quot;: false,
+  &quot;sym_hearing_difficulty&quot;: false,
+  &quot;sym_fits_history&quot;: false,
+  &quot;sym_mouth_opening_difficulty&quot;: false,
+  &quot;sym_mouth_ulcer_2wk&quot;: false,
+  &quot;sym_mouth_growth_2wk&quot;: false,
+  &quot;sym_mouth_patch_2wk&quot;: false,
+  &quot;sym_pain_chewing&quot;: false,
+  &quot;sym_voice_change&quot;: false,
+  &quot;sym_skin_patch&quot;: false,
+  &quot;sym_grip_difficulty&quot;: false,
+  &quot;sym_sensation_loss&quot;: false,
+  &quot;phq2_interest&quot;: 1,
+  &quot;phq2_mood&quot;: 0,
+  &quot;part_a_score&quot;: 4,
+  &quot;part_d_score&quot;: 1,
+  &quot;total_score&quot;: 4,
+  &quot;refer_to_mo&quot;: false,
+  &quot;refer_to_cho&quot;: false,
+  &quot;ncd_day_priority&quot;: false,
+  &quot;phone&quot;: &quot;99999 00000&quot;,
+  &quot;national_id&quot;: &quot;1234 5678 9012&quot;
+}</pre>
+  <div class="prose">
+    <p class="cap">Response: <code>200</code>. The response lists a result for every rule on the record type. 5 of the 21 are shown here.</p>
+  </div>
+<pre class="code">{
+  &quot;evaluation&quot;: {
+    &quot;rulepack_id&quot;: &quot;sha256:ee8bc71c46c252dfc1ce5e7837fde3072bc3d7ec7f368354f579f52f2567a3a1&quot;,
+    &quot;tenant_id&quot;: &quot;samvit&quot;,
+    &quot;record_type&quot;: &quot;cbac&quot;,
+    &quot;record_id&quot;: &quot;cbac-000123&quot;,
+    &quot;violations&quot;: [
+      {
+        &quot;code&quot;: &quot;field_unknown&quot;,
+        &quot;level&quot;: &quot;warning&quot;,
+        &quot;message&quot;: &quot;sex is not declared on this record type and was ignored&quot;,
+        &quot;record_type&quot;: &quot;cbac&quot;,
+        &quot;rule_id&quot;: null
+      }
+    ],
+    &quot;outcomes&quot;: [
+      {
+        &quot;rule_id&quot;: &quot;GF-020&quot;,
+        &quot;version&quot;: {
+          &quot;major&quot;: 1,
+          &quot;minor&quot;: 0,
+          &quot;patch&quot;: 0
+        },
+        &quot;outcome&quot;: &quot;not_evaluated&quot;,
+        &quot;evidence&quot;: null,
+        &quot;blocked_on&quot;: []
+      },
+      {
+        &quot;rule_id&quot;: &quot;QC-025&quot;,
+        &quot;version&quot;: {
+          &quot;major&quot;: 2,
+          &quot;minor&quot;: 0,
+          &quot;patch&quot;: 1
+        },
+        &quot;outcome&quot;: &quot;not_applicable&quot;,
+        &quot;evidence&quot;: null,
+        &quot;blocked_on&quot;: []
+      },
+      {
+        &quot;rule_id&quot;: &quot;QS-031&quot;,
+        &quot;version&quot;: {
+          &quot;major&quot;: 1,
+          &quot;minor&quot;: 0,
+          &quot;patch&quot;: 0
+        },
+        &quot;outcome&quot;: &quot;indeterminate&quot;,
+        &quot;evidence&quot;: {
+          &quot;message&quot;: &quot;needs the best known registered_on from this person&#x27;s profile, and no value was supplied&quot;,
+          &quot;fields&quot;: {
+            &quot;visit_date&quot;: &quot;2026-09-22&quot;,
+            &quot;beneficiary.latest.registered_on&quot;: null
+          },
+          &quot;error&quot;: null
+        },
+        &quot;blocked_on&quot;: [
+          &quot;latest.registered_on&quot;
+        ]
+      },
+      {
+        &quot;rule_id&quot;: &quot;QS-033&quot;,
+        &quot;version&quot;: {
+          &quot;major&quot;: 1,
+          &quot;minor&quot;: 0,
+          &quot;patch&quot;: 0
+        },
+        &quot;outcome&quot;: &quot;not_applicable&quot;,
+        &quot;evidence&quot;: null,
+        &quot;blocked_on&quot;: []
+      },
+      {
+        &quot;rule_id&quot;: &quot;ST-007&quot;,
+        &quot;version&quot;: {
+          &quot;major&quot;: 1,
+          &quot;minor&quot;: 0,
+          &quot;patch&quot;: 0
+        },
+        &quot;outcome&quot;: &quot;pass&quot;,
+        &quot;evidence&quot;: null,
+        &quot;blocked_on&quot;: []
+      }
+    ],
+    &quot;profile_updates&quot;: [
+      {
+        &quot;field&quot;: &quot;age&quot;,
+        &quot;value&quot;: 52,
+        &quot;as_of&quot;: &quot;2026-09-22&quot;
+      }
+    ],
+    &quot;scored&quot;: true
+  },
+  &quot;summary&quot;: {
+    &quot;outcomes&quot;: {
+      &quot;not_evaluated&quot;: 3,
+      &quot;pass&quot;: 12,
+      &quot;not_applicable&quot;: 4,
+      &quot;indeterminate&quot;: 2
+    },
+    &quot;by_feeds&quot;: {
+      &quot;suspicion&quot;: {
+        &quot;not_evaluated&quot;: 3,
+        &quot;pass&quot;: 2
+      },
+      &quot;provenance&quot;: {
+        &quot;pass&quot;: 4
+      },
+      &quot;quality&quot;: {
+        &quot;pass&quot;: 3,
+        &quot;not_applicable&quot;: 3,
+        &quot;indeterminate&quot;: 1
+      },
+      &quot;sufficiency&quot;: {
+        &quot;pass&quot;: 3,
+        &quot;not_applicable&quot;: 1,
+        &quot;indeterminate&quot;: 1
+      }
+    },
+    &quot;by_dimension&quot;: {
+      &quot;genuineness.fabrication&quot;: {
+        &quot;not_evaluated&quot;: 3,
+        &quot;pass&quot;: 2
+      },
+      &quot;genuineness.provenance&quot;: {
+        &quot;pass&quot;: 4
+      },
+      &quot;quality.conformance&quot;: {
+        &quot;pass&quot;: 3,
+        &quot;not_applicable&quot;: 1
+      },
+      &quot;quality.consistency&quot;: {
+        &quot;not_applicable&quot;: 2,
+        &quot;indeterminate&quot;: 1
+      },
+      &quot;sufficiency.protocol&quot;: {
+        &quot;pass&quot;: 3,
+        &quot;not_applicable&quot;: 1,
+        &quot;indeterminate&quot;: 1
+      }
+    }
+  }
+}</pre>
+  <div class="prose">
+    <p>In this example the worker entered a Part A score of 4, but the answers give 5 (age 52 is 2 points, daily tobacco 2, and a waist of 84 cm for a woman 1), so QC-025 fails. QS-031 is indeterminate because DQS has no registration on file for this person yet.</p>
+
+    <h2>Response fields</h2>
+  </div>
+  <dl class="fields">
+    <dt>evaluation.rulepack_id</dt><dd>The version of Samvit's rules the record was checked under. Stored with the result, so an old result can be explained after the rules change.</dd>
+    <dt>evaluation.record_id</dt><dd>The <code>record_id</code> sent.</dd>
+    <dt>evaluation.violations</dt><dd>Problems with the fields themselves: a value that cannot be read, a required field that is missing, a field that is not listed. Each has a <code>code</code>, a <code>level</code> and a <code>message</code>. A level of <code>error</code> means the record could not be read and was not checked. A level of <code>warning</code> means it was checked anyway.</dd>
+    <dt>evaluation.outcomes</dt><dd>One entry per rule: the rule's ID and version, its outcome, and for a failure the <code>evidence</code>, which holds the supervisor message and the values the rule was decided on. <code>blocked_on</code> names the facts about the person that were missing when the outcome is indeterminate.</dd>
+    <dt>evaluation.profile_updates</dt><dd>Facts this record adds to what DQS knows about the person, such as age, with the date they hold from. Later records for the same person are checked against them.</dd>
+    <dt>evaluation.scored</dt><dd><code>false</code> when the record could not be read.</dd>
+    <dt>summary</dt><dd>How many rules gave each outcome: overall, by area (<code>by_feeds</code>) and by kind of rule (<code>by_dimension</code>). In <code>by_feeds</code>, <code>provenance</code> is genuineness evidence of a real visit and <code>suspicion</code> is genuineness signs of invented data. See <a href="#record-rules">Record rules</a>.</dd>
+  </dl>
+
+  <div class="prose"><h2>Outcomes</h2></div>
+  <div class="table-scroll">
+  <table class="plain">
+    <thead><tr><th>Outcome</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>pass</code></td><td>The record meets the rule.</td></tr>
+      <tr><td><code>fail</code></td><td>The record does not meet the rule. The evidence says why.</td></tr>
+      <tr><td><code>not_applicable</code></td><td>The rule does not cover this record, such as a referral-reason rule on a record with no referral.</td></tr>
+      <tr><td><code>indeterminate</code></td><td>The rule needs a fact about the person that DQS does not have yet, such as their registration date or sex.</td></tr>
+      <tr><td><code>not_evaluated</code></td><td>A dataset rule. It is worked out later over many records. See <a href="#dataset-rules">Dataset rules</a>.</td></tr>
+      <tr><td><code>error</code></td><td>The rule could not be worked out on this record. <code>evidence.error</code> says why.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="prose"><h2>Status codes</h2></div>
+  <div class="table-scroll">
+  <table class="plain">
+    <thead><tr><th>Code</th><th>When</th><th>Body</th></tr></thead>
+    <tbody>
+      <tr><td><code>200</code></td><td>The record was read, checked and stored. Rules may still have failed.</td><td>The response above.</td></tr>
+      <tr><td><code>422</code></td><td>The record could not be read: a value of the wrong type, or no <code>record_id</code> or <code>beneficiary_id</code>. It is stored with the problems found and is not checked.</td><td>The same shape as a <code>200</code>, with <code>scored: false</code>, the problems in <code>violations</code> and no outcomes.</td></tr>
+      <tr><td><code>400</code></td><td>The body is not JSON, or is JSON but not an object.</td><td><code>{"detail": "body is not valid JSON"}</code> or <code>{"detail": "body must be a JSON object"}</code></td></tr>
+      <tr><td><code>404</code></td><td>The address names a record type Samvit does not have.</td><td><code>{"detail": "Not Found"}</code></td></tr>
+      <tr><td><code>405</code></td><td>A method other than <code>POST</code>.</td><td><code>{"detail": "Method Not Allowed"}</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="prose">
+    <p class="cap">The example request again, with these two fields changed:</p>
+  </div>
+<pre class="code">{
+  &quot;age&quot;: &quot;fifty-two&quot;,
+  &quot;form_version&quot;: &quot;2023&quot;
+}</pre>
+  <div class="prose">
+    <p class="cap">Response: <code>422</code>. The age cannot be read as a number. The unknown field on its own would only have been a warning.</p>
+  </div>
+<pre class="code">{
+  &quot;evaluation&quot;: {
+    &quot;rulepack_id&quot;: &quot;sha256:ee8bc71c46c252dfc1ce5e7837fde3072bc3d7ec7f368354f579f52f2567a3a1&quot;,
+    &quot;tenant_id&quot;: &quot;samvit&quot;,
+    &quot;record_type&quot;: &quot;cbac&quot;,
+    &quot;record_id&quot;: &quot;cbac-000123&quot;,
+    &quot;violations&quot;: [
+      {
+        &quot;code&quot;: &quot;field_not_parseable&quot;,
+        &quot;level&quot;: &quot;error&quot;,
+        &quot;message&quot;: &quot;age: &#x27;fifty-two&#x27; is not an integer&quot;,
+        &quot;record_type&quot;: &quot;cbac&quot;,
+        &quot;rule_id&quot;: null
+      },
+      {
+        &quot;code&quot;: &quot;field_unknown&quot;,
+        &quot;level&quot;: &quot;warning&quot;,
+        &quot;message&quot;: &quot;form_version is not declared on this record type and was ignored&quot;,
+        &quot;record_type&quot;: &quot;cbac&quot;,
+        &quot;rule_id&quot;: null
+      },
+      {
+        &quot;code&quot;: &quot;field_unknown&quot;,
+        &quot;level&quot;: &quot;warning&quot;,
+        &quot;message&quot;: &quot;sex is not declared on this record type and was ignored&quot;,
+        &quot;record_type&quot;: &quot;cbac&quot;,
+        &quot;rule_id&quot;: null
+      }
+    ],
+    &quot;outcomes&quot;: [],
+    &quot;profile_updates&quot;: [],
+    &quot;scored&quot;: false
+  },
+  &quot;summary&quot;: {
+    &quot;outcomes&quot;: {},
+    &quot;by_feeds&quot;: {},
+    &quot;by_dimension&quot;: {}
+  }
+}</pre>
+</section>
+
+<!-- ============================ RECORD RULES ============================ -->
+<section class="part" id="record-rules">
+  <p class="eyebrow">Record rules</p>
+  <h1>Rules checked on each record</h1>
+  <div class="prose">
+    <p>These 38 rules are checked on each record as it arrives. Their results come back in the API response. Each rule belongs to one of three areas.</p>
+  </div>
+  <div class="gates">
+    <div class="gate c-suff">
+      <h3>Sufficiency</h3>
+      <p>Whether enough was recorded to judge the record: questions answered, photographs taken, reasons given.</p>
+    </div>
+    <div class="gate c-susp">
+      <h3>Genuineness</h3>
+      <p>Whether the record comes from a real visit. It has two parts that are always reported separately. <b style="color:var(--g-prov)">Evidence of a real visit</b>, such as a location inside the village. <b style="color:var(--g-susp)">Signs of invented data</b>, such as a form finished before the visit.</p>
+      <p>Missing evidence, as in an area with poor phone signal, does not count as a sign of invented data.</p>
+    </div>
+    <div class="gate c-qual">
+      <h3>Quality</h3>
+      <p>Whether the recorded values are in range, add up, and agree with each other.</p>
+    </div>
+  </div>
+  <div class="prose">
+    <p>A supervisor message is what a supervisor reads when the rule fails. Words in square brackets are filled in from the record.</p>
+  </div>
+  <div data-lookup="record"></div>
+</section>
+
+<!-- ============================ DATASET RULES ============================ -->
+<section class="part" id="dataset-rules">
+  <p class="eyebrow">Dataset rules</p>
+  <h1>Rules over many records</h1>
+  <div class="prose">
+    <p>These 8 rules look for patterns that only show across many records: a worker's week, several weeks, or all the workers in the district. One record cannot pass or fail them, so each appears in the API response with the outcome <code>not_evaluated</code>. Their results appear in the reports and on the dashboard, for each worker and each week.</p>
+    <p>Most of them look for signs of invented data, such as forms entered faster than screenings can be done or answer sets that repeat. Three measure how often the worker, the AI and the clinician agree about the oral photographs. Those three do not pass or fail.</p>
+  </div>
+  <div data-lookup="dataset"></div>
+</section>
+
+<!-- ============================ ARCHITECTURE ============================ -->
+<section class="part" id="architecture">
+  <p class="eyebrow">Architecture</p>
+  <h1>How DQS fits together</h1>
+  <div class="prose">
+    <p>DQS has four parts: the API, a database for configuration and records, an extract process that copies into a separate reporting database, and a dashboard.</p>
+  </div>
+
+<div class="flow" role="img" aria-label="Avni sends each record to the API. The API reads and writes the DQS database. The extract process copies from the DQS database into the reporting database, which the dashboard reads.">
+  <div class="node">Avni</div><div class="arrow">one record<br>per request &rarr;</div>
+  <div class="node">API</div><div class="arrow">&harr;</div>
+  <div class="node db">DQS database<small>configuration and records</small></div><div class="arrow">&rarr;</div>
+  <div class="node">Extract process</div><div class="arrow">&rarr;</div>
+  <div class="node db">Reporting database</div><div class="arrow">&rarr;</div>
+  <div class="node">Dashboard</div>
+</div>
+
+  <div class="components">
+    <div>
+      <h3>API</h3>
+      <p>Receives each record, codes or removes personal data, checks the record against the record rules, stores the record and its results, and returns the results. It checks against the version of Samvit's rules that was most recently published when it started.</p>
+    </div>
+    <div>
+      <h3>DQS database</h3>
+      <p>Holds Samvit's configuration: the record types and their fields, which rules apply and their settings, the village boundaries, and every published version of the rules. It also holds every record as stored, after personal data is handled, and each record's rule results, marked with the version of the rules that produced them.</p>
+    </div>
+    <div>
+      <h3>Extract process</h3>
+      <p>Runs on a schedule. It copies new and changed records and results into the reporting database and links each record to its worker, village and taluk as they were on the visit date. It works out the dataset rules and adds the results up for each worker and each taluk, week by week.</p>
+    </div>
+    <div>
+      <h3>Reporting database</h3>
+      <p>A separate database, so that reports do not slow the API down. It holds the copied records and results, the lists of workers, villages and devices, and the weekly results and scores.</p>
+    </div>
+    <div>
+      <h3>Dashboard</h3>
+      <p>A web page that shows each worker's and each taluk's scores by week, and the rules behind them. It reads a file written from the reporting database by <code>dqs dashboard export</code>, so it shows the scores as of the last export.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h2>Scores</h2>
+    <p>A single record has no score. Results are added up for each worker for each week, Monday to Sunday by visit date, and for each taluk for each week. Each gets a score for sufficiency, for the two parts of genuineness, and for quality, and an overall trust figure. The three areas are always shown next to the trust figure.</p>
+    <p>A worker is compared with the other workers in the same district. A week with fewer than 20 records is marked as not having enough data, and is not scored. One rule that fails often pulls its area's score down sharply, and passing rules do not hide it. The trust figure starts from quality and is lowered by signs of invented data and by low sufficiency. Weak evidence of a real visit does not lower it. It makes the trust figure less certain. Every score names the version of the rules it was worked out under.</p>
+
+    <h2>Changing a rule</h2>
+    <p>Rules, settings and fields are configuration. A change to them needs no change to the program.</p>
+    <ol class="steps">
+      <li>Edit Samvit's configuration file, <code>tenants/samvit/samvit.yaml</code>: change a setting, add or remove a rule, or add a field.</li>
+      <li>Load it into the DQS database: <code>dqs config import tenants/samvit/samvit.yaml</code>.</li>
+      <li>Publish: <code>dqs publish --tenant samvit</code>. This checks the configuration and creates a new numbered version of Samvit's rules. The API uses it from its next restart.</li>
+      <li>Re-check the stored records under the new version: <code>dqs rescore --tenant samvit --all</code>.</li>
+      <li>Run the extract so the reports show the new results and the scores are worked out again: <code>dqs etl run --tenant samvit --all</code>.</li>
+      <li>Write the scores for the dashboard: <code>dqs dashboard export --tenant samvit --out dashboard.json</code>, into the folder the dashboard page is served from.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  Generated from <code>tenants/samvit/samvit.yaml</code>, <code>catalogue/rules.yaml</code>, <code>catalogue/parameters.yaml</code> and <code>catalogue/canonical_fields.yaml</code> in the data-quality-service repository. The example responses were produced by the service's own code.
+</footer>
+</main>
+
+<script>
+const RULES = [{"id": "ORAL-001", "custom": true, "title": "Risk-factor fields incomplete", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["Oral screening"], "batch": false, "window": null, "definition": "Fails when areca nut use or alcohol use is blank, or when alcohol use is current and how often it is taken is blank.", "note": "Does not apply when the screening is marked not required.", "message": "Areca nut or alcohol use, or how often alcohol is taken, was left blank", "params": []}, {"id": "ORAL-002", "custom": true, "title": "Tobacco-use history not recorded", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["Oral screening"], "batch": false, "window": null, "definition": "Fails when smokeless tobacco use or bidi and cigarette use is blank.", "note": "Does not apply when the screening is marked not required.", "message": "Smokeless tobacco or bidi/cigarette use was left blank", "params": []}, {"id": "ORAL-003", "custom": true, "title": "Referral place missing", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["Oral screening"], "batch": false, "window": null, "definition": "Fails when a screening that needs a referral has no place of referral.", "note": "A screening needs one when the worker saw a lesion, when the AI found any photograph suspicious, or when the person could not open their mouth.", "message": "A lesion was seen or flagged, or the mouth did not open, and no referral place is recorded", "params": []}, {"id": "SM-001", "custom": false, "title": "Oral cavity image missing", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Photographs and AI verdicts", "record_types": ["Oral screening"], "batch": false, "window": null, "definition": "Fails when an oral screening has no photograph.", "note": "Does not apply when the screening is marked not required or the person could not open their mouth.", "message": "An oral screening was recorded with no image attached", "params": []}, {"id": "SM-008", "custom": false, "title": "Fewer image angles than required", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Photographs and AI verdicts", "record_types": ["Oral screening"], "batch": false, "window": null, "definition": "Fails when an oral screening has fewer than 8 photographs.", "note": "Applies to the same screenings as SM-001, and only when at least one photograph was taken. A missing screening photograph is SM-001.", "message": "The screening has [image_count] images; 8 are expected", "params": [{"name": "Fewest photographs per screening", "value": "8"}]}, {"id": "SM-009", "custom": false, "title": "AI verdict missing on an image", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Photographs and AI verdicts", "record_types": ["Oral screening"], "batch": false, "window": null, "definition": "Fails when any photograph in the screening has no AI verdict, or the count of such photographs is missing.", "note": "Applies when at least one photograph was taken.", "message": "[images_ai_missing] of [image_count] images have no AI verdict", "params": []}, {"id": "SP-002", "custom": false, "title": "Risk-factor fields incomplete", "version": "2.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when any of the six CBAC Part A questions is blank: age, tobacco use, daily alcohol, waist, 150 minutes of activity a week, and family history.", "note": "", "message": "One or more CBAC Part A risk questions were left blank", "params": []}, {"id": "SP-003", "custom": false, "title": "Symptom questions left blank", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when any of the 21 CBAC Part B symptom questions asked of everyone is blank.", "note": "The questions cover breathlessness, cough or fever for two weeks, blood in sputum, weight loss, night sweats, TB treatment and history, vision, hearing, fits, mouth opening, ulcers, growths and patches in the mouth, pain when chewing, voice change, skin patches, grip and loss of sensation. The questions asked of women only are SP-017.", "message": "One or more CBAC Part B symptom questions were left blank", "params": []}, {"id": "SP-015", "custom": false, "title": "Referral reason missing", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when a referral to the Medical Officer or the Community Health Officer is recorded with no reason.", "note": "Applies only to records with a referral.", "message": "A referral is recorded without a reason", "params": []}, {"id": "SP-016", "custom": false, "title": "PHQ-2 questions left blank", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when either of the two CBAC Part D questions (loss of interest, low mood) is blank.", "note": "", "message": "One or both CBAC Part D (PHQ-2) questions were left blank", "params": []}, {"id": "SP-017", "custom": false, "title": "Women's symptom questions left blank", "version": "1.0.0", "area": "Sufficiency", "part": "", "feeds": "sufficiency", "kind": "Questions answered", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "For a woman, fails when any of the seven breast and cervical symptom questions is blank.", "note": "DQS reads the person's sex from their earlier records. A man passes. When sex is not on file the outcome is indeterminate.", "message": "One or more of the breast and cervical symptom questions were left blank", "params": []}, {"id": "GF-022", "custom": false, "title": "Entry typed long after the visit", "version": "1.0.0", "area": "Genuineness", "part": "evidence of a real visit", "feeds": "provenance", "kind": "Evidence of a real visit", "record_types": ["Registration", "CBAC", "Oral screening", "Clinician review"], "batch": false, "window": null, "definition": "Fails when the form was finished more than 24 hours after the visit.", "note": "When only the visit date is known, the wait is counted from the start of that day. This rule is reported with each worker's results and does not lower any score.", "message": "Entered [capture_lag_hours] h after the visit, more than 24 h", "params": [{"name": "Longest wait before entry", "value": "24 hours"}]}, {"id": "IM-015", "custom": false, "title": "Taken well outside the encounter window", "version": "1.0.0", "area": "Genuineness", "part": "evidence of a real visit", "feeds": "provenance", "kind": "Evidence of a real visit", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the camera's own time for the photograph is more than 2 hours away from the visit time.", "note": "Does not apply when the file carries no camera time; many apps remove it.", "message": "The photo was taken [exif_gap_hours] hours from the visit, more than 2", "params": [{"name": "Longest gap from the visit", "value": "2 hours"}]}, {"id": "SL-001", "custom": false, "title": "Location not captured", "version": "1.0.0", "area": "Genuineness", "part": "evidence of a real visit", "feeds": "provenance", "kind": "Evidence of a real visit", "record_types": ["Registration", "CBAC", "Oral screening"], "batch": false, "window": null, "definition": "Fails when the record has no GPS latitude or no GPS longitude.", "note": "A missing location counts against the evidence of a real visit. It does not count as a sign of invented data, because a phone in an area with poor signal may not get a location.", "message": "No location was captured for this record", "params": []}, {"id": "ST-001", "custom": false, "title": "Visit time missing or in the future", "version": "1.0.0", "area": "Genuineness", "part": "evidence of a real visit", "feeds": "provenance", "kind": "Evidence of a real visit", "record_types": ["Registration", "CBAC", "Oral screening", "Clinician review"], "batch": false, "window": null, "definition": "Fails when the visit time is missing, or is later than the time DQS received the record.", "note": "", "message": "The visit time is missing or later than the time the service received the record", "params": []}, {"id": "ST-008", "custom": false, "title": "Timestamp outside session window", "version": "1.0.0", "area": "Genuineness", "part": "evidence of a real visit", "feeds": "provenance", "kind": "Evidence of a real visit", "record_types": ["Registration", "CBAC", "Oral screening"], "batch": false, "window": null, "definition": "Fails when the visit time is before 09:00 or at or after 18:00, India (IST), or falls on a Sunday.", "note": "Public holidays are not taken into account.", "message": "The visit at [visit_at] is outside working hours (9:00 to 18:00) or on the weekly day off", "params": [{"name": "Time zone", "value": "India (IST)"}, {"name": "Working day starts", "value": "09:00"}, {"name": "Working day ends", "value": "18:00"}, {"name": "Weekly day off", "value": "Sunday"}]}, {"id": "GF-013", "custom": false, "title": "Identical CBAC answers", "version": "2.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["CBAC"], "batch": true, "window": null, "definition": "Looks for CBAC forms from one worker whose answers are all the same as another form's: the lifestyle questions, including the exact waist measurement, the two Part D questions and all 28 symptom questions.", "note": "Worked out for each worker for each week. Reports the share of the worker's forms that repeat another form's answers.", "message": "Many of the worker's CBAC forms carry an answer set identical to another's", "params": []}, {"id": "GF-017", "custom": false, "title": "CBAC scores heaped below the cut-off", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["CBAC"], "batch": true, "window": 6, "definition": "Looks for CBAC Part A scores that gather just below the high-risk score (4 or more), where a score one point higher would have made the person a priority.", "note": "Worked out over the last 6 weeks. Compares how many of a worker's scores sit just below the cut-off with how many sit just above it.", "message": "Part A scores cluster just below 4", "params": [{"name": "CBAC high-risk score", "value": "4 or more"}]}, {"id": "GF-020", "custom": false, "title": "Implausible pace", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["CBAC", "Oral screening"], "batch": true, "window": null, "definition": "Looks for records entered faster than screenings can be done: more than 12 of a worker's records finished within any 60 minutes.", "note": "Worked out for each worker for each week. Reports the share of the worker's records that fall inside such bursts.", "message": "More than 12 records within 60 minutes", "params": [{"name": "Time window", "value": "60 minutes"}, {"name": "Most records in the window", "value": "12"}]}, {"id": "GF-030", "custom": false, "title": "AI override rate far from peers", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["Oral screening"], "batch": true, "window": 4, "definition": "Compares how often a worker says they saw a lesion the AI did not flag with how often the other workers in the district do.", "note": "Worked out over the last 4 weeks. A worker who overrides the AI much more or much less often than the others is flagged.", "message": "The worker overrides the AI far more or less often than their peers", "params": []}, {"id": "IM-012", "custom": false, "title": "Identical image already submitted", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when exactly the same file was sent for another person.", "note": "A second copy of one photograph for the same person counts as a resubmission and passes.", "message": "The same file was submitted for another beneficiary", "params": []}, {"id": "IM-013", "custom": false, "title": "Very similar to another beneficiary's image", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the photograph looks almost the same as a photograph of another person.", "note": "DQS compares a fingerprint of how each picture looks. Two photographs differing by 6 or less count as copies.", "message": "The image is [phash_distance_other_beneficiary] bits from another beneficiary's image, within 6", "params": [{"name": "Difference counted as a copy", "value": "6 or less"}]}, {"id": "IM-019", "custom": false, "title": "Near copy of another image in this screening", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the photograph looks almost the same as another photograph in the same screening.", "note": "Catches one view photographed several times in place of the different views asked for. Uses the same fingerprint and setting as IM-013.", "message": "The image is [phash_distance_same_screening] bits from another image of this screening, within 6", "params": [{"name": "Difference counted as a copy", "value": "6 or less"}]}, {"id": "QP-010", "custom": false, "title": "Same patient registered twice", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["Registration"], "batch": true, "window": 13, "definition": "Looks for the same person registered twice: registrations in the same village whose names sound alike, of the same sex, and with ages within 2 years.", "note": "Worked out over the last 13 weeks. Names are compared by how they sound, so two spellings of one name still match. The comparison works on the coded names; no name is stored.", "message": "Registrations in the same village matching another on the name's sound, sex and age within 2 years", "params": [{"name": "Age difference allowed", "value": "2 years"}]}, {"id": "SL-004", "custom": false, "title": "GPS outside assigned area", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["Registration", "CBAC", "Oral screening"], "batch": false, "window": null, "definition": "Fails when the phone's location is more than 500 m outside the boundary of the village the record names.", "note": "DQS measures the distance against the LGD village boundaries stored for Samvit. The rule does not apply to a record with no location, or one naming a village whose boundary DQS does not hold.", "message": "The location is [distance_outside_village_m] m outside village [village_id], more than the 500 m allowed", "params": [{"name": "Distance allowed outside the village", "value": "500 m"}]}, {"id": "ST-007", "custom": false, "title": "Entry recorded before the visit", "version": "1.0.0", "area": "Genuineness", "part": "signs of invented data", "feeds": "suspicion", "kind": "Signs of invented data", "record_types": ["Registration", "CBAC", "Oral screening", "Clinician review"], "batch": false, "window": null, "definition": "Fails when the form was finished on the phone before the visit it records took place.", "note": "Applies when both the visit time and the time of entry are present.", "message": "The entry was completed at [recorded_at], before the visit at [visit_at]", "params": []}, {"id": "IM-001", "custom": false, "title": "Image file is corrupt", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the file is not a JPEG or PNG that opens.", "note": "", "message": "The file is [image_format]; a JPEG or PNG that opens is needed", "params": []}, {"id": "IM-002", "custom": false, "title": "Resolution too low for review", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the photograph is smaller than 480 pixels on its shorter side or 640 pixels on its longer side.", "note": "Whether the photograph is upright or on its side does not matter.", "message": "The image is [image_width] x [image_height] px; at least 480 x 640 is needed", "params": [{"name": "Shorter side at least", "value": "480 pixels"}, {"name": "Longer side at least", "value": "640 pixels"}]}, {"id": "IM-003", "custom": false, "title": "File size suggests over-compression", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the file is smaller than 20 KB or larger than 8 MB.", "note": "A very small file usually means the photograph was compressed too far to show detail.", "message": "The file is [image_bytes] bytes, outside 20480 to 8388608", "params": [{"name": "Smallest file", "value": "20 KB"}, {"name": "Largest file", "value": "8 MB"}]}, {"id": "IM-004", "custom": false, "title": "Image is out of focus", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the photograph's sharpness measure is below 60.", "note": "A blurred photograph cannot be reviewed by a clinician.", "message": "The focus measure is [focus_laplacian_var], below 60", "params": [{"name": "Lowest sharpness", "value": "60"}]}, {"id": "IM-005", "custom": false, "title": "Too dark, too bright, or blown out", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["Oral image"], "batch": false, "window": null, "definition": "Fails when the photograph is too dark or too bright on average, or when too much of it is fully black or fully white.", "note": "Average brightness must lie between 40 of 255 and 215 of 255. The fully black part and the fully white part must each be under 25% of the picture.", "message": "Mean brightness [luminance_mean] (allowed 40 to 215), dark share [clipped_dark_share], bright share [clipped_bright_share] (each below 0.25)", "params": [{"name": "Darkest average brightness", "value": "40 of 255"}, {"name": "Brightest average brightness", "value": "215 of 255"}, {"name": "Share of fully black or white allowed", "value": "25%"}]}, {"id": "ORAL-004", "custom": true, "title": "Images or findings on a screening marked not required", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Answers consistent with each other", "record_types": ["Oral screening"], "batch": false, "window": null, "definition": "Fails when a screening marked not required has photographs, an answer on whether the worker saw a lesion, or an answer on whether the worker overrode the AI.", "note": "", "message": "The screening is marked not required but carries images or lesion answers", "params": []}, {"id": "QBA-009", "custom": false, "title": "FLW and AI disagree on images", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Agreement between worker, AI and clinician", "record_types": ["Oral screening"], "batch": true, "window": null, "definition": "Measures how often the worker and the AI give the same verdict, suspicious or not suspicious, on the same photographs.", "note": "Worked out for each worker for each week. It is a measurement to compare workers with each other and does not pass or fail.", "message": "Agreement between the worker's image verdicts and the AI's", "params": []}, {"id": "QBA-010", "custom": false, "title": "Clinician and AI disagree on images", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Agreement between worker, AI and clinician", "record_types": ["Clinician review"], "batch": true, "window": null, "definition": "Measures how often the AI gives the same verdict as the clinician on the same photographs, taking the clinician's verdict as correct.", "note": "Worked out for each week. It is a measurement and does not pass or fail.", "message": "Agreement between the clinician's image verdicts and the AI's, with the clinician as reference", "params": []}, {"id": "QBA-011", "custom": false, "title": "Clinician and FLW disagree on images", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Agreement between worker, AI and clinician", "record_types": ["Clinician review"], "batch": true, "window": null, "definition": "Measures how often the worker gives the same verdict as the clinician on the same photographs, taking the clinician's verdict as correct.", "note": "Worked out for each worker for each week. It is a measurement and does not pass or fail.", "message": "Agreement between the clinician's image verdicts and the worker's, with the clinician as reference", "params": []}, {"id": "QC-005", "custom": false, "title": "Waist out of range", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when the waist measurement is below 40 cm or above 200 cm.", "note": "", "message": "The waist of [waist_cm] cm is outside 40 to 200 cm", "params": []}, {"id": "QC-017", "custom": false, "title": "CBAC score out of range", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when the entered CBAC Part A score or total score is below 0 or above 11.", "note": "11 is the highest Part A score the CBAC form allows.", "message": "A CBAC score is outside 0 to 11 (Part A [part_a_score], total [total_score])", "params": []}, {"id": "QC-025", "custom": false, "title": "CBAC score does not match its answers", "version": "2.0.1", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when the entered CBAC Part A score or total score differs from the score the six Part A answers give.", "note": "DQS scores the answers as the CBAC form does. Age 40 to 49 is 1 point, 50 to 59 is 2, 60 or over is 3. Daily tobacco is 2, past or occasional tobacco 1. Daily alcohol is 1. For a woman, a waist of 81 to 90 cm is 1 and over 90 cm is 2; for a man, 91 to 100 cm is 1 and over 100 cm is 2. Less than 150 minutes of activity a week is 1. Family history is 2. The person's sex is taken from the form, or else from their registration. Applies when all six answers, the person's sex (female or male) and at least one entered score are present.", "message": "The entered CBAC score (Part A [part_a_score], total [total_score]) does not match the answers, which give [cbac_part_a_points] points", "params": []}, {"id": "QC-031", "custom": false, "title": "PHQ-2 score does not match its answers", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when the Part D score is not the two Part D answers added together.", "note": "Applies when both answers and the score are present.", "message": "The Part D score [part_d_score] is not [phq2_interest] + [phq2_mood]", "params": []}, {"id": "QS-022", "custom": false, "title": "High CBAC score not prioritised", "version": "2.0.1", "area": "Quality", "part": "", "feeds": "quality", "kind": "Answers consistent with each other", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when the Part A answers give a score of 4 or more and the person is not marked as a priority for the NCD screening day.", "note": "The score is worked out from the answers, so a wrongly entered score does not hide a missed priority.", "message": "The Part A answers give [cbac_part_a_points] points, at or above 4, and the person is not marked NCD-day priority", "params": [{"name": "CBAC high-risk score", "value": "4 or more"}]}, {"id": "QS-031", "custom": false, "title": "Visit before registration", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Answers consistent with each other", "record_types": ["CBAC", "Oral screening"], "batch": false, "window": null, "definition": "Fails when the visit is dated before the person's registration date.", "note": "DQS looks up the registration date from the person's earlier records. When none is on file the outcome is indeterminate.", "message": "The visit on [visit_date] is dated before this person was registered", "params": []}, {"id": "QS-032", "custom": false, "title": "Review without a prior screening", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Answers consistent with each other", "record_types": ["Clinician review"], "batch": false, "window": null, "definition": "Fails when a clinician review is dated before the person's oral screening.", "note": "DQS looks up the screening from the person's earlier records. A screening marked not required does not count. When no screening is on file the outcome is indeterminate.", "message": "The review at [visit_at] comes before this person's oral screening", "params": []}, {"id": "QS-033", "custom": false, "title": "Symptom reported without referral to MO", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Answers consistent with each other", "record_types": ["CBAC"], "batch": false, "window": null, "definition": "Fails when any CBAC Part B symptom is answered Yes and no referral to the Medical Officer is recorded.", "note": "Covers all 28 symptom questions, including those asked of women only.", "message": "A Part B symptom is recorded as Yes and no referral to a Medical Officer is recorded", "params": []}, {"id": "REV-001", "custom": true, "title": "Suspicious review marked low risk", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Answers consistent with each other", "record_types": ["Clinician review"], "batch": false, "window": null, "definition": "Fails when the clinician found the photographs suspicious and the risk level is not High Risk.", "note": "", "message": "The review found the images suspicious but the risk level is not High Risk", "params": []}, {"id": "REV-002", "custom": true, "title": "Suspicious review with no action", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Answers consistent with each other", "record_types": ["Clinician review"], "batch": false, "window": null, "definition": "Fails when the clinician found the photographs suspicious and the recommended action is blank or “No action”.", "note": "", "message": "The review found the images suspicious and recommends no action", "params": []}, {"id": "REV-003", "custom": true, "title": "Photos unacceptable to the clinician", "version": "1.0.0", "area": "Quality", "part": "", "feeds": "quality", "kind": "Values in range and adding up", "record_types": ["Clinician review"], "batch": false, "window": null, "definition": "Fails when the clinician marked one or more photographs as unusable.", "note": "The result sits on the review record. It describes the photographs of the worker who did the screening, named in screened_by_worker_id.", "message": "The clinician marked [images_unacceptable] images unacceptable", "params": []}];
+const AREA_CLASS = { sufficiency: "c-suff", provenance: "c-prov", suspicion: "c-susp", quality: "c-qual" };
+const AREAS = ["Sufficiency", "Genuineness", "Quality"];
+const RECORD_TYPES = ["Registration", "CBAC", "Oral screening", "Clinician review", "Oral image"];
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+function haystack(r) {
+  return [r.id, r.title, r.definition, r.note, r.message, r.kind, r.area, r.part,
+          r.record_types.join(" "), r.params.map(p => p.name).join(" ")].join(" ").toLowerCase();
+}
+
+function card(r) {
+  const settings = r.params.length
+    ? r.params.map(p => `${esc(p.name)}: <b>${esc(p.value)}</b>`).join("<br>")
+    : "None";
+  const over = !r.batch ? "Each record" : r.window ? `Each worker, last ${r.window} weeks` : "Each worker, each week";
+  const area = r.part ? `${r.area} · ${r.part}` : r.area;
+  return `<article class="rule ${AREA_CLASS[r.feeds]}">
+    <div class="rule-head">
+      <span class="rule-id">${esc(r.id)}</span>
+      <span class="rule-title">${esc(r.title)}</span>
+      <span class="rule-area">${esc(area)}</span>
+    </div>
+    <p class="rule-def">${esc(r.definition)}</p>
+    ${r.note ? `<p class="rule-note">${esc(r.note)}</p>` : ""}
+    <div class="rule-facts">
+      <div><span>Record types</span>${esc(r.record_types.join(", "))}</div>
+      <div><span>Looks at</span>${esc(over)}</div>
+      <div><span>Samvit's settings</span>${settings}</div>
+      <div><span>Kind · version</span>${esc(r.kind)} · ${esc(r.version)}${r.custom ? " · written for Samvit" : ""}</div>
+    </div>
+    <div class="rule-msg">Supervisor message: <q>${esc(r.message)}</q></div>
+  </article>`;
+}
+
+function mount(root, rules) {
+  const state = { q: "", area: "", rt: "" };
+  const types = RECORD_TYPES.filter(t => rules.some(r => r.record_types.includes(t)));
+  const areas = AREAS.filter(a => rules.some(r => r.area === a));
+  const id = root.dataset.lookup;
+  root.innerHTML = `
+    <div class="controls">
+      <input type="search" placeholder="Search by ID, title, field or wording" autocomplete="off" aria-label="Search rules">
+      <select aria-label="Record type"><option value="">All record types</option>${types.map(t => `<option>${esc(t)}</option>`).join("")}</select>
+    </div>
+    <div class="chips" role="group" aria-label="Filter by area"></div>
+    <div class="count" aria-live="polite"></div>
+    <div class="list"></div>`;
+  const chips = root.querySelector(".chips");
+  const cls = { Sufficiency: "c-suff", Genuineness: "c-susp", Quality: "c-qual" };
+  chips.innerHTML = [["", "All areas"]].concat(areas.map(a => [a, a])).map(([v, label]) => {
+    const n = v ? rules.filter(r => r.area === v).length : rules.length;
+    return `<button type="button" class="chip ${v ? cls[v] : ""}" data-area="${esc(v)}" aria-pressed="${v === state.area}">${esc(label)} · ${n}</button>`;
+  }).join("");
+  function render() {
+    const q = state.q.trim().toLowerCase();
+    const shown = rules.filter(r =>
+      (!state.area || r.area === state.area) &&
+      (!state.rt || r.record_types.includes(state.rt)) &&
+      (!q || haystack(r).includes(q)));
+    root.querySelector(".count").textContent = `${shown.length} of ${rules.length} rules`;
+    root.querySelector(".list").innerHTML = shown.length
+      ? shown.map(card).join("")
+      : `<p class="empty">No rule matches. Clear the search or choose another filter.</p>`;
+  }
+  chips.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    state.area = b.dataset.area;
+    chips.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    render();
+  }));
+  root.querySelector("input").addEventListener("input", e => { state.q = e.target.value; render(); });
+  root.querySelector("select").addEventListener("change", e => { state.rt = e.target.value; render(); });
+  render();
+}
+
+mount(document.querySelector('[data-lookup="record"]'), RULES.filter(r => !r.batch));
+mount(document.querySelector('[data-lookup="dataset"]'), RULES.filter(r => r.batch));
+</script>
