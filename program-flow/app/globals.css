@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens — Tanuh AI Mobile App (Figma variables)
+   Names mirror the Figma variable paths ("/" → "-").
+------------------------------------------------------------------- */
+:root {
+  /* Brand / background */
+  --bg-brand-default: #11777c;
+  --background-surface-brand: #ddf1f2;
+  --background-surface-default: #ffffff;
+  --background-surface-muted: #f3f4f6;
+  --background-selection-selected: #11777c;
+  --background-action-primary-default: #11777c;
+  --background-feedback-warning-subtle: #fef3c7;
+  --background-feedback-danger-subtle: #f2e3e4;
+  --surface-l1: #f9fafb;
+  --color-brand-surface: #f7f7f7;
+  --color-brand-primary: #14868c;
+
+  /* Foreground */
+  --fg-base-default: #111827;
+  --fg-base-subtle: #6b7280;
+  --fg-base-inverse: #ffffff;
+  --fg-brand-default: #0e6266;
+  --text-brand-default: #0e6266;
+  --foreground-content-primary: #111827;
+  --foreground-content-secondary: #4b5563;
+  --foreground-content-tertiary: #6b7280;
+  --foreground-content-helper: #9ca3af;
+  --foreground-content-disabled: #9ca3af;
+  --foreground-selection-selected: #ffffff;
+  --foreground-feedback-warning: #92400e;
+  --foreground-feedback-danger: #861d23;
+  --color-text-text-color-primary: #111827;
+  --color-text-text-color-secondary: #6b7280;
+  --color-border-border-secondary: #9ca3af;
+  --colors-glyph-default: #1c1b1f;
+  --icon-content-tertiary: #6b7280;
+
+  /* Borders */
+  --border-divider: #e5e7eb;
+  --border-subtle: #e5e7eb;
+
+  /* Radius */
+  --mobile-rounded-sm: 8px;
+  --radius-radius-full: 9999px;
+
+  /* Tracking */
+  --tracking-wide: 0.4px;
+  --tracking-m3-0-1: 0.1px;
+  --tracking-m3-0-15: 0.15px;
+  --tracking-m3-0-25: 0.25px;
+}
+
+@theme inline {
+  --font-title: var(--font-inter);
+  --font-body: var(--font-inter);
+  --font-label: var(--font-inter);
+  --font-roboto: var(--font-roboto-family);
+
+  --color-bg-brand-default: var(--bg-brand-default);
+  --color-surface-brand: var(--background-surface-brand);
+  --color-surface-default: var(--background-surface-default);
+  --color-surface-muted: var(--background-surface-muted);
+  --color-surface-l1: var(--surface-l1);
+  --color-brand-surface: var(--color-brand-surface);
+  --color-brand-primary: var(--color-brand-primary);
+  --color-selection-selected: var(--background-selection-selected);
+  --color-fg-selection-selected: var(--foreground-selection-selected);
+  --color-action-primary: var(--background-action-primary-default);
+  --color-warning-subtle: var(--background-feedback-warning-subtle);
+  --color-danger-subtle: var(--background-feedback-danger-subtle);
+
+  --color-fg-default: var(--fg-base-default);
+  --color-fg-subtle: var(--fg-base-subtle);
+  --color-fg-inverse: var(--fg-base-inverse);
+  --color-fg-brand: var(--fg-brand-default);
+  --color-text-brand: var(--text-brand-default);
+  --color-content-primary: var(--foreground-content-primary);
+  --color-content-secondary: var(--foreground-content-secondary);
+  --color-content-tertiary: var(--foreground-content-tertiary);
+  --color-content-helper: var(--foreground-content-helper);
+  --color-content-disabled: var(--foreground-content-disabled);
+  --color-fg-warning: var(--foreground-feedback-warning);
+  --color-fg-danger: var(--foreground-feedback-danger);
+  --color-text-primary: var(--color-text-text-color-primary);
+  --color-text-secondary: var(--color-text-text-color-secondary);
+  --color-border-secondary: var(--color-border-border-secondary);
+  --color-glyph-default: var(--colors-glyph-default);
+  --color-icon-tertiary: var(--icon-content-tertiary);
+  --color-divider: var(--border-divider);
+  --color-border-subtle: var(--border-subtle);
+
+  --radius-mobile-sm: var(--mobile-rounded-sm);
+  --radius-full: var(--radius-radius-full);
+}
+
+/* ------------------------------------------------------------------
+   Text styles (Figma typography styles)
+------------------------------------------------------------------- */
+/* Mobile/Title/md/Semibold */
+@utility type-title-md {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: var(--tracking-m3-0-15);
+}
+/* Mobile/Title/sm/Semibold */
+@utility type-title-sm {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: var(--tracking-m3-0-1);
+}
+/* Mobile/Title/xs/Medium */
+@utility type-title-xs {
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: var(--tracking-m3-0-1);
+}
+/* Mobile/Body/sm/Regular · Mobile/Label/lg/Regular */
+@utility type-body-sm {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: var(--tracking-wide);
+}
+/* Mobile/Label/md/Regular */
+@utility type-label-md {
+  font-family: var(--font-label);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: var(--tracking-wide);
+}
+/* Avatar initials */
+@utility type-avatar {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: var(--tracking-m3-0-25);
+}
+/* title/sm (Roboto Medium 14/20) */
+@utility type-action {
+  font-family: var(--font-roboto);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+/* body/small (Roboto Regular 12/16) */
+@utility type-roboto-body-sm {
+  font-family: var(--font-roboto);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+/* body/large (Roboto Regular 16/24) */
+@utility type-roboto-body-lg {
+  font-family: var(--font-roboto);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+body {
+  background: #e5e7eb;
+  color: var(--fg-base-default);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
